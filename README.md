@@ -1,62 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mahanagar App Testing Repo 🚀
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A dedicated environment for testing, debugging, and refining API integrations between **Laravel 12** and **ERPNext (Frappe)**. This repository serves as a sandbox for Sales Order management, item synchronization, and status workflow validation.
 
-## About Laravel
+## 🛠 Project Purpose
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This repository is used to:
+- Test REST API communication with `manjit.frappe.cloud`.
+- Validate **Sales Order** creation and update workflows.
+- Debug **DocStatus** transitions (0: Draft, 1: Submitted, 2: Cancelled).
+- Prototype dynamic frontend components using Tailwind CSS and JavaScript.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🧰 Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend**: Laravel 12.x (PHP 8.2+)
+- **Frontend**: Blade, Tailwind CSS, JavaScript (Vanilla/Alpine.js)
+- **Integration**: Frappe REST API v1
+- **Environment**: Localhost / ERPNext Cloud
 
-## Learning Laravel
+## 🚀 Getting Started
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Prerequisites
+- PHP 8.2 or higher
+- Composer & NPM
+- Access to an ERPNext instance (API Key & API Secret)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2. Installation
+```bash
+# Clone the repository
+git clone [https://github.com/shibusharma1/mahanagar_app_testing_repo.git](https://github.com/shibusharma1/mahanagar_app_testing_repo.git)
+cd mahanagar_app_testing_repo
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Install PHP dependencies
+composer install
 
-## Laravel Sponsors
+# Install and compile assets
+npm install && npm run build
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# Setup Environment
+cp .env.example .env
+php artisan key:generate
+3. ERPNext Configuration
+Add your credentials to the .env file:
 
-### Premium Partners
+Code snippet
+ERPNEXT_BASE_URL=[https://manjit.frappe.cloud](https://manjit.frappe.cloud)
+ERPNEXT_API_KEY=your_generated_key
+ERPNEXT_API_SECRET=your_generated_secret
+📋 Features Tested
+🔹 Sales Order Management
+[x] Dynamic Item Table (Add/Remove rows via JS).
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+[x] Real-time docstatus mapping.
 
-## Contributing
+[x] Link field validation (Company, Warehouse, Customer).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+[x] Error handling for Frappe LinkValidationError.
 
-## Code of Conduct
+🔹 Integration Logic
+DocStatus 0: Standard Save (Draft).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DocStatus 1: Final Submission (Hard-locks the document in ERP).
 
-## Security Vulnerabilities
+DocStatus 2: Cancellation of existing orders.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+🛡 Security & Testing
+When testing API calls:
 
-## License
+Use the local.INFO logs to inspect raw JSON payloads sent to ERPNext.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# CV_uploader
+Ensure the Company and Warehouse names match your ERP instance exactly to avoid LinkValidationError.
+
+Never commit your .env file with real API Secrets.
+
+🤝 Contributing
+This is a testing repository. If you are part of the development team:
+
+Create a feature branch: git checkout -b fix/api-logic.
+
+Commit your changes: git commit -m 'Fixed status mapping'.
+
+Push to the branch: git push origin fix/api-logic.
+
+Open a Pull Request.
+
+📄 License
+Internal Testing Use - All Rights Reserved.
