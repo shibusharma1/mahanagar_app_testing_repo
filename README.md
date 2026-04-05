@@ -1,87 +1,99 @@
-# Mahanagar App Testing Repo 🚀
+# Biratnagar Metropolitan Scholarship System (Testing Repo)
 
-A dedicated environment for testing, debugging, and refining API integrations between **Laravel 12** and **ERPNext (Frappe)**. This repository serves as a sandbox for Sales Order management, item synchronization, and status workflow validation.
+This repository contains the testing and development codebase for the **Biratnagar Metropolitan City Scholarship Management System**.
 
-## 🛠 Project Purpose
+The system is designed to manage scholarship application processes online, allowing students to apply digitally and enabling the municipality to review, verify, and manage scholarship records efficiently.
 
-This repository is used to:
-- Test REST API communication with `manjit.frappe.cloud`.
-- Validate **Sales Order** creation and update workflows.
-- Debug **DocStatus** transitions (0: Draft, 1: Submitted, 2: Cancelled).
-- Prototype dynamic frontend components using Tailwind CSS and JavaScript.
+🔗 Live System: https://scholarship.biratnagarmun.gov.np/
 
-## 🧰 Tech Stack
+---
 
-- **Backend**: Laravel 12.x (PHP 8.2+)
-- **Frontend**: Blade, Tailwind CSS, JavaScript (Vanilla/Alpine.js)
-- **Integration**: Frappe REST API v1
-- **Environment**: Localhost / ERPNext Cloud
+## 📌 Project Overview
 
-## 🚀 Getting Started
+The Scholarship System helps in:
 
-### 1. Prerequisites
-- PHP 8.2 or higher
-- Composer & NPM
-- Access to an ERPNext instance (API Key & API Secret)
+- Online scholarship application submission
+- Applicant information management
+- Document upload and verification
+- Admin review and approval workflow
+- Scholarship status tracking
+- Municipality-level scholarship record management
 
-### 2. Installation
+This repository is mainly used for testing new updates and improvements before deploying to the production system.
+
+---
+
+## 🚀 Features
+
+### 👨‍🎓 Applicant Side
+- User registration & login
+- Scholarship application form submission
+- Upload required documents (citizenship, marksheet, etc.)
+- View application status
+- Update profile information
+
+### 🏛️ Admin/Municipality Side
+- Admin login dashboard
+- View and manage all scholarship applications
+- Filter/search applications
+- Verify uploaded documents
+- Approvals and rejection system
+- Export/reporting support (if implemented)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** PHP / Laravel (if Laravel is used)
+- **Frontend:** Blade / HTML / CSS / JavaScript
+- **Database:** MySQL
+- **Server:** Apache / Nginx
+- **Deployment:** Web hosting / VPS
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
 ```bash
-# Clone the repository
-git clone [https://github.com/shibusharma1/mahanagar_app_testing_repo.git](https://github.com/shibusharma1/mahanagar_app_testing_repo.git)
+git clone https://github.com/shibusharma1/mahanagar_app_testing_repo.git
 cd mahanagar_app_testing_repo
-
-# Install PHP dependencies
+2️⃣ Install dependencies
 composer install
-
-# Install and compile assets
-npm install && npm run build
-
-# Setup Environment
+3️⃣ Setup environment file
 cp .env.example .env
 php artisan key:generate
-3. ERPNext Configuration
-Add your credentials to the .env file:
+4️⃣ Configure database
 
-Code snippet
-ERPNEXT_BASE_URL=[https://manjit.frappe.cloud](https://manjit.frappe.cloud)
-ERPNEXT_API_KEY=your_generated_key
-ERPNEXT_API_SECRET=your_generated_secret
-📋 Features Tested
-🔹 Sales Order Management
-[x] Dynamic Item Table (Add/Remove rows via JS).
+Update .env file:
 
-[x] Real-time docstatus mapping.
+DB_DATABASE=your_database_name
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+5️⃣ Run migrations
+php artisan migrate
+6️⃣ Start the development server
+php artisan serve
 
-[x] Link field validation (Company, Warehouse, Customer).
+Now open:
 
-[x] Error handling for Frappe LinkValidationError.
-
-🔹 Integration Logic
-DocStatus 0: Standard Save (Draft).
-
-DocStatus 1: Final Submission (Hard-locks the document in ERP).
-
-DocStatus 2: Cancellation of existing orders.
-
-🛡 Security & Testing
-When testing API calls:
-
-Use the local.INFO logs to inspect raw JSON payloads sent to ERPNext.
-
-Ensure the Company and Warehouse names match your ERP instance exactly to avoid LinkValidationError.
-
-Never commit your .env file with real API Secrets.
-
-🤝 Contributing
-This is a testing repository. If you are part of the development team:
-
-Create a feature branch: git checkout -b fix/api-logic.
-
-Commit your changes: git commit -m 'Fixed status mapping'.
-
-Push to the branch: git push origin fix/api-logic.
-
-Open a Pull Request.
-
+http://127.0.0.1:8000
+🔐 Important Notes
+Do not upload .env file to GitHub.
+Ensure proper file permissions for storage and cache:
+php artisan storage:link
+chmod -R 775 storage bootstrap/cache
+📂 Folder Structure (Basic)
+app/ → Application logic
+resources/views/ → Frontend UI pages
+routes/web.php → Web routes
+database/ → Migrations and seeders
+public/ → Public assets
+👨‍💻 Developer / Maintainer
+Developer: Shibu Sharma
+GitHub: https://github.com/shibusharma1
 📄 License
-Internal Testing Use - All Rights Reserved.
+
+This project is developed for Biratnagar Metropolitan City scholarship system usage.
+Unauthorized distribution or commercial use is not permitted.
