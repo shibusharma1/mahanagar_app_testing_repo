@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -73,6 +74,49 @@ class UserController extends Controller
         $user->is_active = !$user->is_active;
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User status updated.');
+        return redirect()->back()->with('success', 'User status updated.');
     }
+
+    public function profile()
+    {
+        $user = auth()->user(); // Or fetch by ID if needed
+        return view('user.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $validated = $request->validate([
+            'name_en' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'nullable|string|max:20',
+            'password' => 'nullable|string|min:6|confirmed',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        // Remove image and password from the validated array
+        unset($validated['image'], $validated['password']);
+
+        // Update base fields
+        $user->update($validated);
+
+        // Handle password update
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        // Handle image update
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('user_photos'), $filename);
+            $user->image = 'user_photos/' . $filename;
+        }
+
+        $user->save();
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
 }

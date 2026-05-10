@@ -69,7 +69,7 @@
                                 </td>
                                 <td>
                                     @if($user->image)
-                                        <img src="{{ asset('storage/'.$user->image) }}" alt="User image" class="rounded-circle shadow-sm" width="50" height="50" style="object-fit: cover;">
+                                        <img src="{{ asset($user->image) }}" alt="User image" class="rounded-circle shadow-sm" width="50" height="50" style="object-fit: cover;">
                                     @else
                                         <span class="text-muted small">No image</span>
                                     @endif

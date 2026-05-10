@@ -40,6 +40,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(ApplicantDocuments::class, 'user_id');
     }
+    
+    public function collegeSelections()
+    {
+        return $this->belongsToMany(CollegeList::class, 'applicant_college_selections', 'user_id', 'college_id')
+            ->withPivot('priority')
+            ->withTimestamps();
+    }
     /**
      * The table associated with the model.
      *

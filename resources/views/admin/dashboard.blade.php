@@ -233,7 +233,6 @@
             </div>
         </div> --}}
 
-        <a href="{{ route('applicants.create')}}">Applicant add</a>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

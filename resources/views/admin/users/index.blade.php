@@ -56,11 +56,11 @@
 
                                 </td>
                                 <td class="d-flex justify-content-center gap-2">
-                                    <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-info"
+                                    <a href="{{ url('users-list/show', $user->id) }}" class="btn btn-sm btn-info d-none"
                                         title="View"><i class="bi bi-eye"></i></a>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"
+                                    <a href="{{ url('users-list/edit', $user->id) }}" class="btn btn-sm btn-warning d-none"
                                         title="Edit"><i class="bi bi-pencil-square"></i></a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                    <form action="{{ url('users-list/destroy', $user->id) }}" method="POST"
                                         class="delete-form d-inline">
                                         @csrf @method('DELETE')
                                         <button type="button" class="btn btn-sm btn-danger delete-btn" title="Delete"><i

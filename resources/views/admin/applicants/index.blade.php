@@ -24,14 +24,14 @@
         </div>
 
         <!-- Search by School -->
-        <div class="col-md-3">
+        {{-- <div class="col-md-3">
             <label class="form-label small text-muted" for="filter_school">School</label>
             <div class="input-group">
                 <span class="input-group-text bg-white"><i class="bi bi-building"></i></span>
                 <input id="filter_school" type="text" name="school_name" class="form-control"
                     placeholder="School name" value="{{ request('school_name') }}">
             </div>
-        </div>
+        </div> --}}
 
         <!-- Scholarship Group -->
         <div class="col-md-2">
@@ -51,8 +51,8 @@
             <label class="form-label small text-muted" for="filter_status">Status</label>
             <select id="filter_status" name="status" class="form-select">
                 <option value="">All Status</option>
-                <option value="0" {{ request('status')==='0' ? 'selected' : '' }}>Pending</option>
-                <option value="1" {{ request('status')==='1' ? 'selected' : '' }}>Approved</option>
+                <option value="1" {{ request('status')==='1' ? 'selected' : '' }}>Pending</option>
+                <option value="2" {{ request('status')==='2' ? 'selected' : '' }}>Approved</option>
             </select>
         </div>
 
@@ -81,7 +81,7 @@
                             <th>#</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>School</th>
+                            {{-- <th>School</th> --}}
                             <th>Scholarship</th>
                             <th>Status</th>
                             <th>Applied On</th>
@@ -93,33 +93,42 @@
                         <tr class="text-center">
                             <td>{{ $applicants->firstItem() + $index }}</td>
                             <td class="text-start">
-                                @if($applicant->documents && $applicant->documents->passport_size_photo)
-                                <img src="{{ asset('storage/'.$applicant->documents->passport_size_photo) }}"
-                                    alt="Passport Size Photo" style="height:150px; width:150px; object-fit:cover;"
-                                    class="img-thumbnail">
+                                @if(!empty($applicant->user->documents->passport_size_photo))
+                                <img src="{{ asset($applicant->user->documents->passport_size_photo) }}"
+                                    alt="Passport Size Photo"
+                                    style="height:50px; width:50px; object-fit:cover; border-radius:50%; border:2px solid #e3e6f0; box-shadow:0 2px 6px rgba(0,0,0,0.08);"
+                                    class="img-fluid shadow-sm" loading="lazy">
                                 @else
                                 <span class="text-muted">N/A</span>
                                 @endif
                             </td>
+                            
                             <td class="text-start">{{ $applicant->name_ne }}</td>
-                            <td class="text-start">{{ $applicant->school_name }}</td>
+                            {{-- <td class="text-start">{{ $applicant->school_name }}</td> --}}
                             <td>{{ ucfirst($applicant->scholarship_group) }}</td>
                             <td>
-                                <span class="badge {{ $applicant->status ? 'bg-success' : 'bg-warning text-dark' }}">
-                                    {{ $applicant->status ? 'Approved' : 'Pending' }}
-                                </span>
+                                                                @php
+                                        $status = $applicant->status;
+                                    @endphp
+
+                                    @if($status == 1)
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    @elseif($status == 2)
+                                        <span class="badge bg-success">Approved</span>
+                                    @endif
+
                             </td>
                             <td>{{ $applicant->created_at->format('d M Y') }}</td>
                             <td>
-                                <a href="{{ route('applicants.show', $applicant) }}"
+                                <a href="{{ route('applicants.show', $applicant->user->id) }}" target="_blank"
                                     class="btn btn-sm btn-info">View</a>
-                                <a href="{{ route('applicants.edit', $applicant) }}"
-                                    class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('applicants.destroy', $applicant) }}" method="POST"
+                                {{-- <a href="{{ route('applicants.edit', $applicant) }}"
+                                    class="btn btn-sm btn-warning">Edit</a> --}}
+                                {{-- <form action="{{ route('applicants.destroy', $applicant) }}" method="POST"
                                     class="d-inline delete-form">
                                     @csrf @method('DELETE')
                                     <button type="button" class="btn btn-sm btn-danger delete-btn">Delete</button>
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                         @empty

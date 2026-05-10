@@ -11,10 +11,18 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{{ route('user.dashboard')}}">Home</a>
             </li>
 
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('applicants.create')}}">Apply for Schoolarship</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" target="_blank" href="{{ route('applicants.show', Auth::user()->id) }}">Schoolarship Status</a>
+            </li>
+
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Introduction</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Overview</a></li>
@@ -36,13 +44,6 @@
                 </ul>
             </li>
 
-            {{-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Finance</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Budget</a></li>
-                </ul>
-            </li> --}}
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Program / Project</a>
                 <ul class="dropdown-menu">
@@ -50,27 +51,13 @@
                 </ul>
             </li>
 
-            {{-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Reports</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Annual Report</a></li>
-                </ul>
-            </li> --}}
-
-            {{-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">eGov services</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Service 1</a></li>
-                </ul>
-            </li> --}}
-
             <li class="nav-item">
                 <a class="nav-link" href="#">Gallery</a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
-            </li>
+            </li> --}}
         </ul>
 
         <!-- User Dropdown -->
@@ -82,13 +69,13 @@
                     $user = Auth::user();
                     $photo = $user->applicantDocuments->passport_photo ?? null;
                     @endphp
-
-                    <img src="{{ $photo ? asset( $photo ) : asset('Biratnagar_logo.png') }}" alt="{{ Auth::user()->name_en }}"
+                    
+                    <img src="{{ Auth::user()->image ? asset( Auth::user()->image ) : asset('Biratnagar_logo.png') }}" alt="{{ Auth::user()->name_en }}"
                         class="user-img me-2" />
                     <span>{{ Auth::user()->name_en }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile') }}">Profile</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>

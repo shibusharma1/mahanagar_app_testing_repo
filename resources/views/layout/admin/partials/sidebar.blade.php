@@ -26,20 +26,20 @@
         @endif
         @endauth
         <li class="nav-item">
-            <a href="{{ route('users.index')}}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
+            <a href="{{ url('users-list')}}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <i class="bi bi-people"></i>
                 Users
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('applicants.index')}}" class="nav-link {{ request()->routeIs('applicants.*') ? 'active' : '' }}">
+            <a href="{{ url('applicants/applicant-list')}}" class="nav-link {{ request()->routeIs('applicants.*') ? 'active' : '' }}">
                 <i class="bi bi-file-earmark-text"></i>
                 Applications
             </a>
         </li>
 
         <li class="nav-item">
-            <a href="{{ route('settings.edit') }}" class="nav-link  {{ request()->routeIs('settings.*') ? 'active' : '' }}">
+            <a href="{{ url('/settings-list') }}" class="nav-link  {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                 <i class="bi bi-gear"></i>
                 Settings
             </a>

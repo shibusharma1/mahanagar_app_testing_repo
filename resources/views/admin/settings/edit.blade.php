@@ -14,7 +14,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-<form action="{{ route('settings.update') }}" method="POST" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm border">
+<form action="{{ url('/settings-update') }}" method="POST" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm border">
     @csrf
 
     {{-- Application Info --}}
@@ -30,7 +30,7 @@
                 <input type="file" name="logo" class="form-control">
                 @if($setting->logo)
                     <div class="mt-2">
-                        <img src="{{ asset('storage/'.$setting->logo) }}" style="height: 60px;" class="border rounded shadow-sm" alt="Logo">
+                        <img src="{{ asset($setting->logo) }}" style="height: 60px;" class="border rounded shadow-sm" alt="Logo">
                     </div>
                 @endif
             </div>
@@ -39,7 +39,7 @@
                 <input type="file" name="fav_icon" class="form-control">
                 @if($setting->fav_icon)
                     <div class="mt-2">
-                        <img src="{{ asset('storage/'.$setting->fav_icon) }}" style="height: 32px;" class="border rounded shadow-sm" alt="Fav Icon">
+                        <img src="{{ asset($setting->fav_icon) }}" style="height: 32px;" class="border rounded shadow-sm" alt="Fav Icon">
                     </div>
                 @endif
             </div>
